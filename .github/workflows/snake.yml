@@ -1,0 +1,29 @@
+name: Generate Snake
+
+on:
+  # Chạy tự động mỗi 12 giờ
+  schedule:
+    - cron: "0 */12 * * *"
+  
+  # Cho phép chạy manual
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checkout code
+      - uses: actions/checkout@v3
+      
+      # Generate snake animation
+      - uses: Platane/snk@v3
+        with:
+          # GitHub username
+          github_user_name: ${{ github.repository_owner }}
+          
+          # Output files
+          outputs: |
+            dist/github-snake.svg
+            dist/github-snake-dark.svg?palette=github-dark
+            dist/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
